@@ -1,0 +1,30 @@
+[
+    {
+        "name": "T-Shirt",
+        "description": "Men's T-Shirt",
+        "type": "Cloth",
+        "price": 32.45,
+        "imageUrl": "https://unsplash.com/photos/Wr0TpKqf26s"
+    },
+    {
+        "name": "Pants",
+        "description": "Men's Pants",
+        "type": "Cloth",
+        "price": 50.3,
+        "imageUrl": "https://unsplash.com/photos/Wr0TpKqf26s"
+    },
+    {
+        "name": "Shirts",
+        "description": "Men's Shirts",
+        "type": "Cloth",
+        "price": 60.0,
+        "imageUrl": "https://unsplash.com/photos/Wr0TpKqf26s"
+    },
+    {
+        "name": "Short Pants",
+        "description": "Women's Short Shirt",
+        "type": "Cloth",
+        "price": 37.0,
+        "imageUrl": "https://unsplash.com/photos/Wr0TpKqf26s"
+    }
+]
