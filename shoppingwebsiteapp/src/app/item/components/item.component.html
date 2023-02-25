@@ -1,0 +1,183 @@
+<header class="header-area">
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <div class="container">
+            <a href="/" class="navbar-brand">Bootdey.com</a>
+
+            <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#main-nav">
+                <span class="menu-icon-bar"></span>
+                <span class="menu-icon-bar"></span>
+                <span class="menu-icon-bar"></span>
+            </button>
+
+            <div id="main-nav" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li><a href="#" class="nav-item nav-link active" (click)="onOpenModal('add', undefined)">Add
+                            Item</a></li>
+                    <li><a href="#" class="nav-item nav-link">Cart</a></li>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input (ngModelChange)="searchItems(key.value)" #key="ngModel" ngModel
+                            [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="search"
+                            placeholder="Search" aria-label="Search">
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Show Items -->
+<div class="shop-items">
+    <div class="container-fluid" id="main-container">
+        <div class="row">
+            <div *ngFor="let item of items" class="col-md-3 col-sm-6">
+                <div class="item">
+                    <img class="img-responsive" src="{{item.imageUrl}}" alt="" height="250px">
+                    <div class="item-dtls">
+                        <h4><a href="#">{{item?.name}}</a></h4>
+                        <h4>{{item?.description}}</h4>
+                        <span class="price lblue">${{item?.price}}</span>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-info p-3" data-placement="top" data-toggle="tooltip"
+                            title="Add To Cart"><i class="fas fa-shopping-cart"></i></a>
+                        <a href="#" (click)="onOpenModal('edit', item)" class="btn btn-primary p-3" data-placement="top"
+                            data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
+                        <a href="#" (click)="onOpenModal('delete', item)" class="btn btn-danger p-3"
+                            data-placement="top" data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Item Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddItem(addForm)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" ngModel name="description" class="form-control" id="description"
+                            placeholder="Description" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" ngModel name="price" class="form-control" id="price" placeholder="Price"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <input type="text" ngModel name="type" class="form-control" id="type" placeholder="Type"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">Image Url</label>
+                        <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl"
+                            placeholder="Image Url" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="addItemForm"
+                            data-dismiss="modal">Close</button>
+                        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Item Modal -->
+<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editItemModalLabel">Edit Item {{editItem?.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #editForm="ngForm">
+                    <input type="hidden" ngModel="{{editItem?.id}}" name="id" class="form-control" id="id">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" ngModel="{{editItem?.name}}" name="name" class="form-control" id="name"
+                            aria-describedby="emailHelp" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" ngModel="{{editItem?.description}}" name="description" class="form-control"
+                            id="description" placeholder="Description" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" ngModel="{{editItem?.price}}" name="price" class="form-control" id="price"
+                            placeholder="Price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <input type="text" ngModel="{{editItem?.type}}" name="type" class="form-control" id="type"
+                            placeholder="Type" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">Image Url</label>
+                        <input type="text" ngModel="{{editItem?.imageUrl}}" name="imageUrl" class="form-control"
+                            id="imageUrl" placeholder="Image Url" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="editItemForm"
+                            data-dismiss="modal">Close</button>
+                        <button [disabled]="editForm.invalid" (click)="onUpdateItem(editForm.value)"
+                            class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Item Modal -->
+<div class="modal fade" id="deleteItemModal" tabindex="-1" role="dialog" aria-labelledby="deleteItemModelLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteItemModelLabel">Delete Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete item {{deleteItem?.name}}?</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button (click)="onDeleteItem(deleteItem?.id)" class="btn btn-danger"
+                        data-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification for no items -->
+<div *ngIf="items?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">NO ITEMS!</h4>
+        <p>No Items were found.</p>
+    </div>
+</div>
