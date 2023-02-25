@@ -1,9 +1,7 @@
 package com.shoppingwebsite.shoppingwebsite.controller;
 
 import com.shoppingwebsite.shoppingwebsite.model.Cart;
-import com.shoppingwebsite.shoppingwebsite.model.Item;
 import com.shoppingwebsite.shoppingwebsite.service.CartService;
-import com.shoppingwebsite.shoppingwebsite.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +11,9 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/cart")
 public class CartController {
-    private final ItemService itemService;
     private final CartService cartService;
 
-    public CartController(ItemService itemService, CartService cartService) {
-        this.itemService = itemService;
+    public CartController(CartService cartService) {
         this.cartService = cartService;
     }
 
@@ -34,14 +30,14 @@ public class CartController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Item> updateItem(Principal principal, @RequestBody Item item) {
-        Item updateItem = itemService.updateItem(item);
-        return new ResponseEntity<>(updateItem, HttpStatus.OK);
+    public ResponseEntity<Cart> updateCart(Principal principal, @RequestBody Cart cart) {
+        Cart updateCart = cartService.updateCart(cart);
+        return new ResponseEntity<>(updateCart, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Item> deleteItem(Principal principal, @PathVariable("id") Long id) {
-        itemService.deleteItem(id);
+    public ResponseEntity<Cart> deleteItem(Principal principal, @PathVariable("id") Long id) {
+        cartService.deleteCart(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

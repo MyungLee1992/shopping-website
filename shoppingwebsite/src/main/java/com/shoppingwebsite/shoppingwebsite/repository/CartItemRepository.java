@@ -4,11 +4,9 @@ import com.shoppingwebsite.shoppingwebsite.model.Cart;
 import com.shoppingwebsite.shoppingwebsite.model.CartItem;
 import com.shoppingwebsite.shoppingwebsite.model.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
-public interface CartRepository extends JpaRepository<Cart, Long> {
-    void deleteCartById(Long id);
-
-    Optional<Cart> findCartById(Long id);
+@Repository
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
+    CartItem findByCartAndItem(Cart cart, Item item);
 }

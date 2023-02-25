@@ -17,7 +17,6 @@ import java.util.Set;
 public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
     private Long id;
 
     private String name;
@@ -30,8 +29,8 @@ public class Item implements Serializable {
 
     private String imageUrl;
 
-    @ManyToMany(mappedBy = "items")
-    private Set<Cart> carts = new HashSet<>();
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private Set<CartItem> cartItems = new HashSet<>();
 
     @Override
     public String toString() {
@@ -42,7 +41,6 @@ public class Item implements Serializable {
                 ", type='" + type + '\'' +
                 ", price=" + price +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", carts=" + carts +
                 '}';
     }
 }
