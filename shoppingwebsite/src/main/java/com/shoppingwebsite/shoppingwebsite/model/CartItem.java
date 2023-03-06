@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
@@ -13,27 +14,26 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @Table(name = "cart_items")
-public class CartItem {
+public class CartItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonIgnore
+    @ManyToOne(optional = false)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonIgnore
+    @ManyToOne(optional = false)
     @JoinColumn(name = "item_id")
     private Item item;
 
-
     private int quantity = 1;
+    private double price;
 
     public CartItem(Cart cart, Item item) {
         this.cart = cart;
         this.item = item;
+        this.price = item.getPrice();
     }
 
     @Override

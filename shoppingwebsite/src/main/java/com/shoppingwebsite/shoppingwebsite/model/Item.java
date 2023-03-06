@@ -29,9 +29,6 @@ public class Item implements Serializable {
 
     private String imageUrl;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
-    private Set<CartItem> cartItems = new HashSet<>();
-
     @Override
     public String toString() {
         return "Item{" +

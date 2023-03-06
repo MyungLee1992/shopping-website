@@ -1,12 +1,15 @@
 package com.shoppingwebsite.shoppingwebsite.controller;
 
 import com.shoppingwebsite.shoppingwebsite.model.Cart;
+import com.shoppingwebsite.shoppingwebsite.model.CartItem;
+import com.shoppingwebsite.shoppingwebsite.model.Item;
 import com.shoppingwebsite.shoppingwebsite.service.CartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
@@ -18,26 +21,32 @@ public class CartController {
     }
 
     @GetMapping
-    public ResponseEntity<Cart> getCart(Principal principal) {
-        Cart cart = cartService.findCartByUser(principal.getName());
-        return new ResponseEntity<>(cart, HttpStatus.OK);
+    public ResponseEntity<List<CartItem>> getCartItems(Principal principal) {
+        List<CartItem> cartItems = cartService.findCartItemsByUser(principal.getName());
+        return new ResponseEntity<>(cartItems, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Cart> addCartItem(Principal principal, @RequestParam Long itemId) {
-        Cart cart = cartService.addCartItem(principal.getName(), itemId);
-        return new ResponseEntity<>(cart, HttpStatus.CREATED);
+    public ResponseEntity<CartItem> addCartItem(Principal principal, @RequestBody Item item) {
+        CartItem cartItem = cartService.addCartItem(principal.getName(), item);
+        return new ResponseEntity<>(cartItem, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Cart> updateCart(Principal principal, @RequestBody Cart cart) {
-        Cart updateCart = cartService.updateCart(cart);
-        return new ResponseEntity<>(updateCart, HttpStatus.OK);
+    public ResponseEntity<CartItem> updateCartItem(@RequestBody CartItem cartItem) {
+        CartItem updatedCartItem = cartService.updateCartItem(cartItem);
+        return new ResponseEntity<>(updatedCartItem, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Cart> deleteItem(Principal principal, @PathVariable("id") Long id) {
-        cartService.deleteCart(id);
+    public ResponseEntity<Cart> deleteCartItem(@PathVariable("id") Long id) {
+        cartService.deleteCartItemById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Cart> deleteCart(Principal principal) {
+        cartService.deleteCart(principal.getName());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

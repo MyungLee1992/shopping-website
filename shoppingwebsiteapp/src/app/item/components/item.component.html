@@ -1,33 +1,21 @@
-<header class="header-area">
-    <nav class="navbar navbar-expand-md navbar-dark">
-        <div class="container">
-            <a href="/" class="navbar-brand">Bootdey.com</a>
+<div class="alert alert-success alert-dismissible text-center" id="alert" hidden>
+    <strong>{{addedToCartItem?.name}} Added to cart!</strong> 
+</div>
 
-            <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#main-nav">
-                <span class="menu-icon-bar"></span>
-                <span class="menu-icon-bar"></span>
-                <span class="menu-icon-bar"></span>
-            </button>
-
-            <div id="main-nav" class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li><a href="#" class="nav-item nav-link active" (click)="onOpenModal('add', undefined)">Add
-                            Item</a></li>
-                    <li><a href="#" class="nav-item nav-link">Cart</a></li>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input (ngModelChange)="searchItems(key.value)" #key="ngModel" ngModel
-                            [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="search"
-                            placeholder="Search" aria-label="Search">
-                    </form>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-
-<!-- Show Items -->
 <div class="shop-items">
     <div class="container-fluid" id="main-container">
+        <div class="row justify-content-end">
+            <!-- Add Item -->
+            <a href="#" class="btn btn-md btn-outline-primary" (click)="onOpenModal('add', undefined)">Add Item</a>
+            <!-- Search Item -->
+            <form class="form-inline my-2 my-lg-0 mx-2">
+                <input (ngModelChange)="searchItems(key.value)" #key="ngModel" ngModel
+                [ngModelOptions]="{standalone: true}" class="form-control mr-sm-3" type="search"
+                placeholder="Search Product" aria-label="Search">
+            </form>
+        </div>
+
+        <!-- Show Items -->
         <div class="row">
             <div *ngFor="let item of items" class="col-md-3 col-sm-6">
                 <div class="item">
@@ -38,8 +26,8 @@
                         <span class="price lblue">${{item?.price}}</span>
                     </div>
                     <div class="btn-group">
-                        <a href="#" class="btn btn-info p-3" data-placement="top" data-toggle="tooltip"
-                            title="Add To Cart"><i class="fas fa-shopping-cart"></i></a>
+                        <a href="#" (click)="addToCart(item)" class="btn btn-info p-3" data-placement="top" 
+                        data-toggle="tooltip" title="Add To Cart"><i class="fas fa-shopping-cart"></i></a>
                         <a href="#" (click)="onOpenModal('edit', item)" class="btn btn-primary p-3" data-placement="top"
                             data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
                         <a href="#" (click)="onOpenModal('delete', item)" class="btn btn-danger p-3"

@@ -14,6 +14,10 @@ export class ItemService {
     return this.http.get<Item[]>(`${this.apiServerUrl}/item/all`);
   }
 
+  public getItemById(itemId: Number): Observable<Item> {
+    return this.http.get<Item>(`${this.apiServerUrl}/item/find/${itemId}`);
+  }
+
   public addItem(item: Item): Observable<Item> {
     return this.http.post<Item>(`${this.apiServerUrl}/item/add`, item);
   }
@@ -25,4 +29,5 @@ export class ItemService {
   public deleteItem(itemId: Number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/item/delete/${itemId}`);
   }
+
 }

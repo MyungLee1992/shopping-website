@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CartService {
@@ -27,6 +29,17 @@ public class CartService {
         this.itemService = itemService;
     }
 
+    public List<CartItem> findCartItemsByUser(String username) {
+        User user = userRepository.findByUsername(username);
+        Cart cart = user.getCart();
+        if (cart == null) {
+            cart = new Cart(user);
+            cartRepository.save(cart);
+        }
+
+        return cartItemRepository.findByCart(cart);
+    }
+
     public Cart findCartByUser(String username) {
         User user = userRepository.findByUsername(username);
         Cart cart = user.getCart();
@@ -38,24 +51,28 @@ public class CartService {
         return cart;
     }
 
-    public Cart addCartItem(String username, Long itemId) {
-        Item item = itemService.findItemById(itemId);
+    public CartItem addCartItem(String username, Item item) {
         Cart cart = this.findCartByUser(username);
         CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item);
         if (cartItem == null) {
             cartItem = new CartItem(cart, item);
         } else {
             cartItem.setQuantity(cartItem.getQuantity() + 1);
+            cartItem.setPrice(item.getPrice() * cartItem.getQuantity());
         }
-        cart.getCartItems().add(cartItem);
-        return cartRepository.save(cart);
+        return cartItemRepository.save(cartItem);
     }
 
-    public Cart updateCart(Cart cart) {
-        return cartRepository.save(cart);
+    public CartItem updateCartItem(CartItem cartItem) {
+        return cartItemRepository.save(cartItem);
     }
 
-    public void deleteCart(Long id) {
-        cartRepository.deleteCartById(id);
+    public void deleteCartItemById(Long id) {
+        cartItemRepository.deleteCartItemById(id);
+    }
+
+    public void deleteCart(String username) {
+        Cart cart = this.findCartByUser(username);
+        cartItemRepository.deleteAllByCart(cart);
     }
 }

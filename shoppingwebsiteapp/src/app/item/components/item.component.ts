@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { CartItem } from 'src/app/cart/models/cartItem';
+import { CartService } from 'src/app/cart/services/cart.service';
 import { Item } from '../models/item';
 import { ItemService } from '../services/item.service';
 
@@ -9,18 +11,20 @@ import { ItemService } from '../services/item.service';
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css']
 })
+@Injectable()
 export class ItemComponent implements OnInit {
 
   public items: Item[];
+  public addedToCartItem?: Item;
   public editItem?: Item;
   public deleteItem?: Item;
 
-  constructor(private itemService: ItemService) { }
+  constructor(private itemService: ItemService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.getItems();
   }
-
+  
   public getItems(): void {
     this.itemService.getItems().subscribe(
       (response: Item[]) => {
@@ -34,9 +38,9 @@ export class ItemComponent implements OnInit {
 
   public onAddItem(addForm: NgForm): void {
     document.getElementById('addItemForm')?.click();
+    var toast = document.getElementById('toast');
     this.itemService.addItem(addForm.value).subscribe(
       (response: Item) => {
-        console.log(response);
         this.getItems();
       },
       (error: HttpErrorResponse) => {
@@ -106,5 +110,21 @@ export class ItemComponent implements OnInit {
 
     container?.appendChild(button);
     button.click();
+  }
+
+  public addToCart(item: Item): void {
+    var cartAlert = document.getElementById('alert');
+    this.cartService.addCartItem(item).subscribe(
+      (response: CartItem) => {
+        this.addedToCartItem = item;
+        setTimeout(() => {
+          cartAlert!.hidden = true;
+        }, 2000);
+        cartAlert!.hidden = false;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }
