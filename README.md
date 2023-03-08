@@ -1,1 +1,54 @@
-# shopping-website
+# Lil Coconut Shop
+> Lil Coconut Shop is an e-commerce shopping website.
+
+[![NPM Version][npm-image]][npm-url]
+
+<img src="images/lil-coconut-shop-logo.jpg" width="600" height="200" />
+
+## Screenshots
+<img src="images/home.jpg" />
+<img src="images/cart.jpg" />
+
+## Tech/Framework used
+<b>Front End</b>
+* HTML/CSS/JS
+* Angular
+* Bootstrap 4.3
+
+<b>Back End</b>
+* Java
+* MySQL
+
+<b>Framework</b>
+* Spring Boot
+* Spring Security (JwtToken)
+* Apache Maven
+* JPA (Java Persistence API)
+* Hibernate
+
+<b>Architecture</b>
+* RESTful API
+* MVC (Model-View-Controller)
+
+## Development setup
+* Download project
+```sh
+git clone https://github.com/MyungLee1992/shopping-website.git
+```
+
+* Back-End Project
+```
+open shoppingwebsite in IDE
+mvn clean compile
+run the application
+```
+
+* Front-End Project
+```sh
+cd shoppingwebsiteapp
+ng serve
+```
+
+<!-- Markdown link & img dfn's -->
+[npm-image]: https://img.shields.io/npm/v/npm?style=flat-square
+[npm-url]: https://www.npmjs.com/package/npm/v/8.11.0
