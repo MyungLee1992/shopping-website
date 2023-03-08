@@ -1,0 +1,69 @@
+<div class="container padding-bottom-3x mb-1">
+  <!-- Shopping Cart-->
+  <div class="table-responsive shopping-cart">
+    <table class="table">
+      <thead *ngIf="cartItems?.length">
+      <tr>
+        <th>Product Name</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-center">Subtotal</th>
+        <th class="text-center"><a class="btn btn-md btn-outline-danger" href="/cart" (click)="onClearCart()">Clear
+          Cart</a></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cartItem of cartItems">
+        <td>
+          <div class="product-item">
+            <a class="product-thumb" href="#"><img src="{{cartItem.item.imageUrl}}"
+                                                   alt="Product"></a>
+            <div class="product-info">
+              <h4 class="product-title">
+                <a href="#">{{cartItem.item.name}}</a>
+              </h4>
+              <span>{{cartItem.item.description}}</span>
+            </div>
+          </div>
+        </td>
+        <td class="text-center">
+          <div class="form-outline count-input">
+            <input (change)="onUpdateCartItem(cartItem, $event)" type="number" id="quantity" class="form-control"
+                   value="{{cartItem.quantity}}"/>
+          </div>
+        </td>
+        <td class="text-center text-lg text-medium price">${{cartItem.price | number: '1.0-2'}}</td>
+        <td class="text-center">
+          <a class="remove-from-cart" href="/cart" (click)="onDeleteCartItem(cartItem.id)" data-toggle="tooltip"
+             title=""
+             data-original-title="Remove item"><i class="fa fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+      <!-- Empty Cart -->
+      <tr *ngIf="cartItems?.length == 0" class="text-center">
+        <td colspan="4">
+          <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="mb-4 mr-3">
+          <h3><strong>Your Cart is Empty</strong></h3>
+          <h4>Add something to make me happy :)</h4>
+          <a href="/" class="btn btn-primary btn-lg cart-btn-transform m-3" data-abc="true">continue shopping</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Total -->
+  <div class="shopping-cart-footer">
+    <div class="column text-lg">Subtotal: <span class="text-medium">${{totalPrice | number: '1.0-2'}}</span></div>
+  </div>
+  <!-- Footer -->
+  <div class="shopping-cart-footer">
+    <div class="column">
+      <a class="btn btn-lg btn-outline-secondary" href="/">
+        <i class="icon-arrow-left">Back to Shopping</i>
+      </a>
+    </div>
+    <div class="column">
+      <a class="btn btn-success btn-lg" href="#">Checkout</a>
+    </div>
+  </div>
+</div>
