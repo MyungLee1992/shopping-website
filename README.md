@@ -3,11 +3,11 @@
 
 [![NPM Version][npm-image]][npm-url]
 
-<img src="images/lil-coconut-shop-logo.jpg" width="600" height="200" />
+<img src="images/lil-coconut-shop-logo.JPG" width="600" height="200" />
 
 ## Screenshots
-<img src="images/home.jpg" />
-<img src="images/cart.jpg" />
+<img src="images/home.JPG" />
+<img src="images/cart.JPG" />
 
 ## Tech/Framework used
 <b>Front End</b>
