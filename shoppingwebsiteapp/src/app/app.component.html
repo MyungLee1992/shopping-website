@@ -9,13 +9,18 @@
 
             <div id="main-nav" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li *ngIf="user" class="nav-item nav-link">Welcome {{user.firstname}}!</li>
-                    <li>
-                        <a href="/cart" class="nav-item nav-link">
-                            <i class="fa" style="font-size:24px">&#xf07a;</i>
-                            <span class='badge' id='lblCartCount'></span>
-                        </a>
-                    </li>
+                  <li *ngIf="login.user" class="nav-item nav-link">Welcome {{login.user?.username}}!</li>
+                  <li *ngIf="! login.user">
+                    <button type="button" class="btn nav-item nav-link" data-toggle="modal" data-target="#loginModal">
+                      Login
+                    </button>
+                  </li>
+                  <li>
+                    <a href="/cart" class="nav-item nav-link">
+                      <i class="fa" style="font-size:24px">&#xf07a;</i>
+                      <span class='badge' id='lblCartCount'></span>
+                    </a>
+                  </li>
                 </ul>
             </div>
         </div>
@@ -24,8 +29,9 @@
 
 <main>
     <router-outlet></router-outlet>
+  <mw-app-login #login></mw-app-login>
 </main>
 
 <footer>
-    
+
 </footer>

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Injectable, Input, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CartItem } from 'src/app/cart/models/cartItem';
 import { CartService } from 'src/app/cart/services/cart.service';
@@ -37,11 +37,13 @@ export class ItemComponent implements OnInit {
   }
 
   public onAddItem(addForm: NgForm): void {
-    document.getElementById('addItemForm')?.click();
-    var toast = document.getElementById('toast');
+    document.getElementById('closeItemForm')?.click();
+    var addItemForm = <HTMLFormElement>document.getElementById('addItemForm');
     this.itemService.addItem(addForm.value).subscribe(
       (response: Item) => {
         this.getItems();
+        window.location.reload();
+        addItemForm?.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

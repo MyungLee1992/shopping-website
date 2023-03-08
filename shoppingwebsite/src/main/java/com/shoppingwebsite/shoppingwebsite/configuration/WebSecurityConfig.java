@@ -40,8 +40,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.cors().and().csrf().disable() // Enable CORS and disable CSRF
-			.authorizeRequests() // Set permissions on endpoints
+				.authorizeRequests() // Set permissions on endpoints
 				.antMatchers("/auth/**").permitAll()
+				.antMatchers("/item/**").permitAll()
 				.antMatchers("/admin/**").hasAuthority("ADMIN")
 				.antMatchers("/cart/**").hasAnyAuthority("ADMIN", "USER", "ANONYMOUS")
 				.anyRequest().authenticated()

@@ -2,7 +2,6 @@ package com.shoppingwebsite.shoppingwebsite.controller;
 
 import java.util.Objects;
 
-import com.shoppingwebsite.shoppingwebsite.configuration.JwtResponse;
 import com.shoppingwebsite.shoppingwebsite.configuration.JwtTokenUtil;
 import com.shoppingwebsite.shoppingwebsite.model.User;
 import com.shoppingwebsite.shoppingwebsite.service.JwtUserDetailsService;
@@ -46,4 +45,5 @@ public class JwtController {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
+
 }
