@@ -3,7 +3,7 @@
 
 [![NPM Version][npm-image]][npm-url]
 
-<img src="images/lil-coconut-shop-logo.JPG" width="600" height="200" />
+<img src="images/lil-coconut-shop-logo.JPG" width="200" height="75" />
 
 ## Screenshots
 <img src="images/home.JPG" />
