@@ -14,10 +14,11 @@
 * HTML/CSS/JS
 * Angular
 * Bootstrap 4.3
+* Node.js 16.16.0
 
 <b>Back End</b>
-* Java
-* MySQL
+* Java 11
+* MySQL 8
 
 <b>Framework</b>
 * Spring Boot
@@ -25,6 +26,7 @@
 * Apache Maven
 * JPA (Java Persistence API)
 * Hibernate
+* Docker
 
 <b>Architecture</b>
 * RESTful API
@@ -47,6 +49,11 @@ run the application
 ```sh
 cd shoppingwebsiteapp
 ng serve
+```
+
+* Docker Environment
+```sh
+docker-compose up -d
 ```
 
 <!-- Markdown link & img dfn's -->
